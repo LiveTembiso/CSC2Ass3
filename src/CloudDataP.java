@@ -70,14 +70,63 @@ public class CloudDataP extends RecursiveAction {
        	{
             float localX = 0;
             float localY = 0;
-            for (int i = x-1; i <= x+1; i++)
-                if (i >= 0 && i < maxx)
-                    for (int j = y-1; j <= y+1; j++)
-                        if (j >= 0 && j < maxy)
-                        {
-                            localX += advection[t][i][j].getX();
-                            localY += advection[t][i][j].getY();
-                        }
+            int i = y;
+	    int j = x;
+	    int count = 0;
+
+                if (i >= 0 && i < maxy && j >= 0 && j < maxx){
+		     localX += advection[t][i][j].getX();
+                     localY += advection[t][i][j].getY();
+			count++;
+		}
+
+                if ((j-1) >= 0 && (j-1) < maxy && i >= 0 && i < maxx){
+                     localX += advection[t][i][j-1].getX();
+                     localY += advection[t][i][j-1].getY();
+			count++;
+                 }
+		
+		if (j >= 0 && j < maxy && (i-1) >= 0 && (i-1) < maxx){
+                     localX += advection[t][i-1][j].getX();
+                     localY += advection[t][i-1][j].getY();
+			count++;
+                 }
+
+		if ((j-1) >= 0 && (j-1) < maxy && (i-1) >= 0 && (i-1) < maxx){
+                     localX += advection[t][i-1][j-1].getX();
+                     localY += advection[t][i-1][j-1].getY();
+			count++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < maxy && i >= 0 && i < maxx){
+                     localX += advection[t][i][j+1].getX();
+                     localY += advection[t][i][j+1].getY();
+			count++;
+                 }
+
+		if (j >= 0 && j < maxy && (i+1) >= 0 && (i+1) < maxx){
+                     localX += advection[t][i+1][j].getX();
+                     localY += advection[t][i+1][j].getY();
+			count++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < maxy && (i+1) >= 0 && (i+1) < maxx){
+                     localX += advection[t][i+1][j+1].getX();
+                     localY += advection[t][i+1][j+1].getY();
+			count++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < maxy && (i-1) >= 0 && (i-1) < maxx){
+                     localX += advection[t][i-1][j+1].getX();
+                     localY += advection[t][i-1][j+1].getY();
+			count++;
+                 }
+
+		if ((j-1) >= 0 && (j-1) < maxy && (i+1) >= 0 && (i+1) < maxx){
+                     localX += advection[t][i+1][j-1].getX();
+                     localY += advection[t][i+1][j-1].getY();
+			count++;
+                 }
 
             double w = Math.pow(localX, 2) + Math.pow(localY, 2);
             w = Math.sqrt(w);

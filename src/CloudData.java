@@ -70,7 +70,7 @@ public class CloudData {
 				for(int y = 0; y < dimy; y++){
 					float wind = (float)getMag(t,x,y);
 					
-					System.out.println(wind);
+					//System.out.println(wind);
 					xAverage += advection[t][x][y].getX();
                   			yAverage += advection[t][x][y].getY();
 	
@@ -87,23 +87,66 @@ public class CloudData {
        	{
             float localX = 0;
             float localY = 0;
-            for (int i = x-1; i <= x+1; i++) 
-            {
-                if (i >= 0 && i < dimx)
-                {
-                    for (int j = y-1; j <= y+1; j++)
-                    {
-                        if (j >= 0 && j < dimy)
-                        {
-                            localX += advection[t][i][j].getX();
-                            localY += advection[t][i][j].getY();
-                        }
-                    }
-                }
-            }
+	    int i = x;
+	    int j = y;
+	    int count = 0;
+
+                if (i >= 0 && i < dimx && j >= 0 && j < dimy){
+		     localX += advection[t][i][j].getX();
+                     localY += advection[t][i][j].getY();
+			count ++;
+		}
+
+                if ((j-1) >= 0 && (j-1) < dimy && i >= 0 && i < dimx){
+                     localX += advection[t][i][j-1].getX();
+                     localY += advection[t][i][j-1].getY();
+			count ++;
+                 }
+		
+		if (j >= 0 && j < dimy && (i-1) >= 0 && (i-1) < dimx){
+                     localX += advection[t][i-1][j].getX();
+                     localY += advection[t][i-1][j].getY();
+			count ++;
+                 }
+
+		if ((j-1) >= 0 && (j-1) < dimy && (i-1) >= 0 && (i-1) < dimx){
+                     localX += advection[t][i-1][j-1].getX();
+                     localY += advection[t][i-1][j-1].getY();
+			count ++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < dimy && i >= 0 && i < dimx){
+                     localX += advection[t][i][j+1].getX();
+                     localY += advection[t][i][j+1].getY();
+			count ++;
+                 }
+
+		if (j >= 0 && j < dimy && (i+1) >= 0 && (i+1) < dimx){
+                     localX += advection[t][i+1][j].getX();
+                     localY += advection[t][i+1][j].getY();
+			count ++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < dimy && (i+1) >= 0 && (i+1) < dimx){
+                     localX += advection[t][i+1][j+1].getX();
+                     localY += advection[t][i+1][j+1].getY();
+			count ++;
+                 }
+
+		if ((j+1) >= 0 && (j+1) < dimy && (i-1) >= 0 && (i-1) < dimx){
+                     localX += advection[t][i-1][j+1].getX();
+                     localY += advection[t][i-1][j+1].getY();
+			count ++;
+                 }
+
+		if ((j-1) >= 0 && (j-1) < dimy && (i+1) >= 0 && (i+1) < dimx){
+                     localX += advection[t][i+1][j-1].getX();
+                     localY += advection[t][i+1][j-1].getY();
+			count ++;
+                 }
      
-            double w = Math.pow(localX, 2) + Math.pow(localY, 2);
-            w = Math.sqrt(w);
+           // double w = Math.pow(localX, 2) + Math.pow(localY, 2);
+            double w = Math.sqrt(Math.pow((localX/count), 2) + Math.pow((localY/count), 2));
             return w;
          }
 
