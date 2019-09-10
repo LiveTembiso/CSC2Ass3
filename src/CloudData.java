@@ -70,6 +70,7 @@ public class CloudData {
 				for(int y = 0; y < dimy; y++){
 					float wind = (float)getMag(t,x,y);
 					
+					System.out.println(wind);
 					xAverage += advection[t][x][y].getX();
                   			yAverage += advection[t][x][y].getY();
 	

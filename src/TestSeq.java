@@ -8,14 +8,14 @@ public class TestSeq{
 	
 	// stop timer, return time elapsed in seconds
 	private static float tock(){
-		return (System.currentTimeMillis() - startTime) / 1000; 
+		return (System.currentTimeMillis() - startTime); 
 	}
 	
 	public static void main(String[] args){
 
 		if(args.length != 2)
 		{
-		        System.out.println("Incorrect number of command line arguments. Should have form: java treeGrow.java intputfilename");
+		        System.out.println("Incorrect number of command line arguments. Should have form: java TestSeq.java intputfilename outputfilename");
 			System.exit(0);
 		}
 
@@ -24,7 +24,7 @@ public class TestSeq{
 		
 		tick();
 		cloud.setClass();
-		System.out.println("Time taken = " + tock());
+		System.out.println("Time taken = " + tock() + "ms");
 		for(int t = 0; t < cloud.dimt; t++)
 			for(int x = 0; x < cloud.dimx; x++)
 				for(int y = 0; y < cloud.dimy; y++){
