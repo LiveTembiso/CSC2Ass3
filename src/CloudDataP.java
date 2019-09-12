@@ -66,6 +66,7 @@ public class CloudDataP extends RecursiveAction {
 		}
 	}
 
+	//Calculates and returns the prevailling wind magnitude
 	public double getMag(int t, int x, int y)
        	{
             float localX = 0;
@@ -128,7 +129,7 @@ public class CloudDataP extends RecursiveAction {
 			count++;
                  }
 
-            double w = Math.pow(localX, 2) + Math.pow(localY, 2);
+            double w = Math.pow(localX/count, 2) + Math.pow(localY/count, 2);
             w = Math.sqrt(w);
             return w;
          }

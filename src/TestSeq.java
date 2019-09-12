@@ -22,6 +22,7 @@ public class TestSeq{
 		CloudData cloud = new CloudData();
       		cloud.readData(args[0]);
 		
+		System.gc();
 		tick();
 		cloud.setClass();
 		System.out.println("Time taken = " + tock() + "ms");

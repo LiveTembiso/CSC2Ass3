@@ -13,21 +13,13 @@ public class CloudData {
 	float [][][] convection; // vertical air movement strength, that evolves over time
 	int [][][] classification; // cloud type per grid point, evolving over time
 	int dimx, dimy, dimt; // data dimensions
-	float xAverage = 0;
-	float yAverage = 0;
+	float xAverage = 0;  // overall x average
+	float yAverage = 0;  //overall y average
 
 	// overall number of elements in the timeline grids
 
 	int dim(){
 		return dimt*dimx*dimy;
-	}
-
-	// convert linear position into 3D location in simulation grid
-	void locate(int pos, int [] ind)
-	{
-		ind[0] = (int) pos / (dimx*dimy); // t
-		ind[1] = (pos % (dimx*dimy)) / dimy; // x
-		ind[2] = pos % (dimy); // y
 	}
 
 	// read cloud simulation data from file
@@ -64,6 +56,7 @@ public class CloudData {
 		}
 	}
 
+	// Sets the classification of each air layer element and also caltulates the averages for x and for y
 	public void setClass(){
 		for(int t = 0; t < dimt; t++)
 			for(int x = 0; x < dimx; x++)
@@ -83,6 +76,7 @@ public class CloudData {
 	yAverage /= dim();
 	}
 
+	//Calculates and returns the prevailling wind magnitude
 	public double getMag(int t, int x, int y)
        	{
             float localX = 0;
@@ -145,7 +139,6 @@ public class CloudData {
 			count ++;
                  }
      
-           // double w = Math.pow(localX, 2) + Math.pow(localY, 2);
             double w = Math.sqrt(Math.pow((localX/count), 2) + Math.pow((localY/count), 2));
             return w;
          }

@@ -23,7 +23,7 @@ public class TestPar{
 		return (System.currentTimeMillis() - startTime); 
 	}
 	
-
+	//Create instance of ForkJoinPool
 	static final ForkJoinPool fjPool = new ForkJoinPool();
 
 		// read cloud simulation data from file
@@ -59,7 +59,8 @@ public class TestPar{
 			e.printStackTrace();
 		}
 	}
-
+	
+	//Calculates and stores dimension of the grid
 	static int dimension = dimt*dimx*dimy;
 
 	// write classification output to file
@@ -89,7 +90,8 @@ public class TestPar{
 
 	
 	public static void main(String[] args){
-
+	
+		//Checks if 2 files are passed in the command line
 		if(args.length != 2)
 		{
 		        System.out.println("Incorrect number of command line arguments. Should have form: java TestPar.java intputfilename outputfilename");
@@ -100,9 +102,10 @@ public class TestPar{
 		CloudDataP cloudP = new CloudDataP(advection, convection, classification, dimt, dimy, dimx, 0, 0, 0, dimension);
 		
 		System.gc();	
-		tick();
+		tick(); //start timer
 		fjPool.invoke(cloudP);
-		System.out.println("Time taken = " + tock() + "ms");	
+		System.out.println("Time taken = " + tock() + "ms"); //stop timer and print elaspsed time
+	
 		xAverage = cloudP.xAverage;
 		yAverage = cloudP.yAverage;
 
